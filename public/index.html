@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Through Lens by Tomasz Abramski</title>
+  <link rel="shortcut icon" href="../favicon.ico">
+  <script src="modernizr-2.6.2.min.js"></script>
+  <style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    box-sizing: padding-box;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  main {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    z-index: 50;
+  }
+
+  li {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    border: 1px double;
+  }
+
+  h1 {
+    font: 26px Monaco, MonoSpace;
+    color: #fff;
+  }
+
+  span {
+    font: 1.5em Monaco, MonoSpace;
+    height: 90vh;
+    width: 3vh;
+    position: absolute;
+    left: 40%;
+    top: 0%;
+    transform-origin: center;
+    z-index: 100;
+  }
+
+  @media only screen and (max-width: 768px) {
+    span {
+      visibility: hidden;
+    }
+  }
+
+  div.lens {
+    position: absolute;
+    width: 50vh;
+    height: 50vh;
+    top: 25%;
+    left: 50%;
+    border-radius: 100%;
+    z-index: 4;
+    transform: translateX(-50%);
+  }
+
+  div.lens:before,
+  div.lens:after {
+    border-radius: 100%;
+    content: "";
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: inherit;
+    height: inherit;
+    box-shadow: inset 5.5vh 0 0 rgba(0, 0, 0, 0.2), inset 0 5.5vh 0 rgba(0, 0, 0, 0.2), inset -5.5vh 0 0 rgba(0, 0, 0, 0.2), inset 0 -5.5vh 0 rgba(0, 0, 0, 0.2);
+  }
+
+  video {
+    position: absolute;
+    width: 80vh;
+    height: 80vh;
+    top: 10%;
+    left: 50%;
+    z-index: 3;
+    display: block;
+    z-index: 3;
+    transform: translateX(-40%);
+  }
+
+  div.wrapper {
+    position: absolute;
+    width: 50vh;
+    height: 50vh;
+    top: 0%;
+    left: 50%;
+    z-index: 4;
+    z-index: 10;
+    border: 25vh solid #000;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+  </style>
+</head>
+
+<body>
+  <main>
+    <ul id="sphere"></ul>
+    <h1>
+      <span>T</span>
+      <span>H</span>
+      <span>R</span>
+      <span>O</span>
+      <span>U</span>
+      <span>G</span>
+      <span>H</span>
+      <span></span>
+      <span>L</span>
+      <span>E</span>
+      <span>N</span>
+      <span>S<span>
+    </h1>
+    <div class="lens"></div>
+    <video id="video" autoplay="true"></video>
+    <div class="wrapper"></div>
+  </main>
+</body>
+<script>
+(function() {
+  function rainbow(n) {
+    return 'hsl(' + n + ',100%,50%)';
+  }
+  var ul = document.getElementById('sphere');
+  var spans = document.getElementsByTagName('h1')[0].children;
+  var len = spans.length;
+  var dek = -90;
+  for (var i = 0; i < len; i++) {
+    spans[i].style.transform = "rotateZ(" + dek + "deg)";
+    dek = dek + 5;
+  }
+  for (var i = 0, deg = 0; i < 90; i++, deg = deg + 5) {
+    var color = rainbow(i * 10);
+    var li = document.createElement('li');
+    li.style.transform = "rotateZ(" + deg + "deg)";
+    li.style.borderColor = color;
+    ul.appendChild(li);
+  }
+  var video = document.querySelector("#video");
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({
+      video: true
+    }, handleVideo, videoError);
+  }
+
+  function handleVideo(stream) {
+    video.src = window.URL.createObjectURL(stream);
+  }
+
+  function videoError(e) {
+    alert('Problem with your camera!')
+  }
+})();
+</script>
+
+</html>
