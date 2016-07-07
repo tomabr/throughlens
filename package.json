@@ -10,7 +10,8 @@
   "dependencies": {
     "express": "~4.4.5",
     "body-parser": "~1.15.2",
-    "https": "1.0.0"
+    "https": "1.0.0",
+    "fs": "0.0.2"
   },
   "author": "Tomasz Abramski",
   "license": "BSD-2-Clause"
