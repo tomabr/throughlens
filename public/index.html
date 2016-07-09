@@ -272,11 +272,7 @@
       }
     }
 
-
-
-
     function frame() {
-
       if (size === 6) {
         lens.style.background = 'transparent';
         span.style.display = 'none';
@@ -289,11 +285,11 @@
                   size + "vh 0 0 rgba(0, 0, 0, 0.1), inset 0 -" + size + "vh 0 rgba(0, 0, 0, 0.1)";
         var styleSheets = document.styleSheets[0];
         if (styleSheets.addRule) {
-          styleSheets.addRule("div.lens", str);
+          styleSheets.addRule("div.lens::before", "box-shadow:" + str);
+          styleSheets.addRule("div.lens::after", "box-shadow:" + str);
         } else {
           addStylesheetRules([
-            ['div.lens::before', ['box-shadow', str]],
-            ['div.lens::after', ['box-shadow', str]]
+            ['div.lens', ['box-shadow', str]],
           ]);
         }
       }
@@ -312,11 +308,11 @@
         var str = "inset " + size + "vh 0 0 rgba(0, 0, 0, 0.1), inset 0 " + size + "vh 0 rgba(0, 0, 0, 0.1), inset -" + size + "vh 0 0 rgba(0, 0, 0, 0.1), inset 0 -" + size + "vh 0 rgba(0, 0, 0, 0.1)";
         var styleSheets = document.styleSheets[0];
         if (styleSheets.addRule) {
-          styleSheets.addRule("div.lens", str);
+          styleSheets.addRule("div.lens::before", "box-shadow:" + str);
+          styleSheets.addRule("div.lens::after", "box-shadow:" + str);
         } else {
           addStylesheetRules([
-            ['div.lens::before', ['box-shadow', str]],
-            ['div.lens::after', ['box-shadow', str]]
+            ['div.lens', ['box-shadow', str]],
           ]);
         }
       }
@@ -326,7 +322,6 @@
   lens.addEventListener('click', function() {
     animate();
   });
-
 
   function handleVideo(stream) {
     video.src = window.URL.createObjectURL(stream);
@@ -348,5 +343,4 @@
   }
 })();
 </script>
-
 </html>
